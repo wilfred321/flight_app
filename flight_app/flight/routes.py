@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 import csv
 
+from flask_login.utils import login_required
+
 
 
 from flight_app.models import db,Flight,Schedule
@@ -47,8 +49,10 @@ def upload_flight():
 
 import os
 
+@login_required
 
 @flight.route("/register-new-flight", methods=["GET", "POST"])
+
 def register_new_flight():
     if request.method == "POST":
         flight_code = request.form.get("flight_code").upper()
@@ -80,7 +84,7 @@ def register_new_flight():
         
         message = f"Flight {flight_code} with a capacity of {flight_capacity} was added successfully!"
         flash(message, "success")
-        return render_template('index.html')
+        return redirect(url_for('main.index'))
     return render_template("register_new_flight.html", title="Register Flight")
 
 
@@ -239,24 +243,28 @@ def edit_flight(flight_id):
 
 
         # #QUERY THE DB AND REASSIGN THE VALUES IN THE DATABASE
-        # flight = Flight.query.get_or_404(flight_id)
-
-        # if not flight:
-        #     flash('sorry, flight is invalid')
-        #     return redirect(request.referrer)
-        # else
-        #     code = flight_code,
-        #     c
-        
-        # fligh
-        # #COMMIT THE CHANGES
-
-        #EDIT FUNCTION
-        print("Request is a post request.")
         flight = Flight.query.get_or_404(flight_id)
-        return f"This will process the edit function for flight {flight.code}"
+
+        if not flight:
+            flash('sorry, flight is invalid')
+            return redirect(request.referrer)
+        else:
+
+           flight.code = flight_code,
+           flight.model = flight_model,
+           flight.category = category
+
+           db.session.commit()
+           return redirect('Flight Information successfully updated','success')
     flight = Flight.query.get_or_404(flight_id)
     return render_template('register_new_flight.html',flight = flight)
+       
+   
+    #     print("Request is a post request.")
+    #     flight = Flight.query.get_or_404(flight_id)
+    #     return f"This will process the edit function for flight {flight.code}"
+    # flight = Flight.query.get_or_404(flight_id)
+    # return render_template('register_new_flight.html',flight = flight)
 
 
     

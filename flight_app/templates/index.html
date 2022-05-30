@@ -14,17 +14,34 @@
 
 <a class="none special-font small" data-bs-toggle="collapse"  href="#all_pilots_list" role="button" aria-expanded="false"
   aria-controls="all_pilots_list">
-  <i class="fas fa-users"></i> Show All Pilots &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+  <i class="fas fa-users"></i> All Pilots &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+</a>
+
+<a class="none special-font small" href="{{url_for('users.all_users')}}" role="button">
+  <i class="fas fa-users"></i> Show All Users &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+</a>
+
+<a class="none special-font small" href="{{url_for('users.all_passengers')}}" role="button">
+  <i class="fas fa-users"></i> All Passengers &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+</a>
+
+<a class="none special-font small" href="{{url_for('users.register_user')}}" role="button">
+  <i class="fas fa-user-plus"></i> Register Agent &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+</a>
+
+<a class="none special-font small" href="{{url_for('users.set_password')}}" role="button">
+  <i class="fas fa-wrench"></i> Set Password &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+</a>
+
+<a class="none special-font small" href="{{url_for('users.login')}}" role="button">
+  <i class="fas fa-sign-in-alt"></i> Login &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 </a>
 
 <a class="none special-font small" href="{{url_for('flight.register_new_flight')}}" role="button">
-  <i class="far fa-calendar-alt"></i> Register Flight &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+  <i class="fas fa-plane"></i> Register Flight &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 </a>
 
-<a class="none special-font small" data-bs-toggle="collapse" href="#delay_flight" role="button" aria-expanded="false"
-  aria-controls="delay_flight">
-  <i class="far fa-calendar-times"></i> Delay Flight &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-</a>
+
 
 <!-- <a class="none special-font small" data-bs-toggle="collapse" href="#register_pilot" role="button" aria-expanded="false"
   aria-controls="register_pilot">
@@ -48,6 +65,17 @@
     <div class="card card-body mt-3">
       <p class="display-6 text-muted"> <i class="fas fa-plane"></i> Show All Flights</p>
       {%if flights%}
+
+      <div class="table mt-1">
+        <tr>
+ 
+           <a href="{{url_for('flight.register_new_flight')}}" class="btn btn-success btn-sm">
+               <i class="fas fa-plane"></i> Register Flight
+           </a>
+        </tr>
+
+      </div>
+
       <div class=index_table>
         <table class=" table table-sm table-striped table-hover table-bordered">
           <thead class = "small special-font small ">
@@ -162,11 +190,11 @@
 
       {%if pilots%}
 
-      <div class="table mt-3">
+      <div class="table mt-1">
        <tr>
 
           <a href="{{url_for('users.register_pilot')}}" class="btn btn-success btn-sm">
-              <i class="fas fa-calendar-alt"></i> Add Pilot
+              <i class="fas fa-user-astronaut"></i> Add Pilot
           </a>
   
           <button type ="submit"  form = "form1" formaction = "{{url_for('schedule.assign_pilot')}}" class="btn btn-none btn-sm">
